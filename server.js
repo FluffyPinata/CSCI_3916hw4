@@ -4,6 +4,7 @@ var passport = require('passport');
 var authJwtController = require('./auth_jwt');
 var User = require('./Users');
 var Movie = require('./movies');
+var Review = require('./reviews');
 var jwt = require('jsonwebtoken');
 
 var app = express();

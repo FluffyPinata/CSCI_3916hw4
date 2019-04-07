@@ -161,7 +161,29 @@ router.route('/movies')
             } else if (req.data === 0) {
                 res.json({message: 'Movie could not be found'});
             } else {
-                res.json({message: 'Movie was successfully found'})
+                if (req.query.reviews == "True") {
+                    Movie.aggregate([
+                        {
+                          $match: {'title': req.body.title}
+                        },
+                        {
+                            $lookup: {
+                                from: 'reviews',
+                                localField: 'title',
+                                foreignField: 'movieTitle',
+                                as: 'Reviews'
+                            }
+                        }
+                    ]), function(err, doc) {
+                        if (err) {
+                            res.send(err);
+                        } else {
+                            res.json({movie_info: doc, message: 'Movie found'});
+                        }
+                    }
+                } else {
+                    res.json({data: data, message: 'Movie found'});
+                }
             }
         })
     });

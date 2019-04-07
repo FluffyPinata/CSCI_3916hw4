@@ -9,9 +9,11 @@
   "author": "Shawn McCarthy",
   "license": "ISC",
   "dependencies": {
+    "all": "0.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
-    "express": "^4.16.2",
+    "express": "^4.16.4",
+    "heroku": "^7.22.9",
     "jsonwebtoken": "^8.1.1",
     "mongoose": "^5.0.9",
     "passport": "^0.4.0",

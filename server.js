@@ -188,6 +188,40 @@ router.route('/movies')
         })
     });
 
+router.route('/reviews')
+    .post(authJwtController.isAuthenticated, function(req, res) {
+        Review.findOne( { title: req.body.title }, function(err) {
+            if (err) {
+                res.json({message: 'General error'});
+            } else if (req.data !== 0) {
+                var review = new Review();
+                review.name = req.body.name;
+                review.quote = req.body.quote;
+                review.rating = req.body.rating;
+                review.movieTitle = req.body.movieTitle;
+                // save the user
+                review.save(function (err) {
+                    if (err) {
+                            return res.send(err);
+                    }
+
+                    res.json({success: true, message: 'Review created!'});
+                });
+            }
+        })
+    })
+    .get(authJwtController.isAuthenticated, function(req, res) {
+        Review.findOne( { name: req.body.name }, function(err) {
+            if (err) {
+                res.json({message: 'General error'});
+            } else if (req.data === 0) {
+                res.json({message: 'Review could not be found'});
+            } else {
+                res.json({message: "Found review!"});
+            }
+        })
+    });
+
 
 
 router.all('*', function(req, res) {

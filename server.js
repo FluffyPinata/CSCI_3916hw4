@@ -182,7 +182,7 @@ router.route('/movies')
                         }
                     }
                 } else {
-                    res.json({data: data, message: 'Movie found'});
+                    res.json({message: 'Movie found'});
                 }
             }
         })

@@ -161,7 +161,7 @@ router.route('/movies')
             } else if (req.data === 0) {
                 res.json({message: 'Movie could not be found'});
             } else {
-                if (req.query.reviews == "True") {
+                if (req.query.reviews == "true") {
                     Movie.aggregate([
                         {
                           $match: {'title': req.body.title}

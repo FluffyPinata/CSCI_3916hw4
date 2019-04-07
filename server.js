@@ -155,7 +155,7 @@ router.route('/movies')
         })
     })
     .get(authJwtController.isAuthenticated, function(req, res) {
-        Movie.findOne( { title: req.body.title }, function(err) {
+        Movie.findOne( { title: req.body.title }, function(err, data) {
             if (err) {
                 res.json({message: 'General error'});
             } else if (req.data === 0) {

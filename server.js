@@ -177,10 +177,13 @@ router.route('/movies')
                         }
                     ]), function(err, doc) {
                         if (err) {
+                            console.log("Reached here");
                             res.send(err);
                         } else {
+                            console.log("asdf");
                             res.json({movie_info: doc, message: 'Movie found'});
                         }
+                        console.log("endif");
                     }
                 } else {
                     res.json({movie_info: data, message: 'Movie found'});

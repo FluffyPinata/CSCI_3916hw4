@@ -192,7 +192,7 @@ router.route('/movies')
 
 router.route('/reviews')
     .post(authJwtController.isAuthenticated, function(req, res) {
-        Review.findOne( { title: req.body.title }, function(err) {
+        Movie.findOne( { title: req.body.movieTitle }, function(err) {
             if (err) {
                 res.json({message: 'General error'});
             } else if (req.data !== 0) {

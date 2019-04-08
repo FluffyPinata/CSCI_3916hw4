@@ -196,7 +196,7 @@ router.route('/reviews')
         let token2 = token1.split(' ');
         let token3 = jwt.verify(token2[1], process.env.SECRET_KEY);
 
-        Movie.findOne( { title: req.body.movieTitle }, function(err) {
+        Movie.findOne( { title: req.body.movieTitle }, function(err, data) {
             if (err) {
                 res.json({message: 'General error'});
             } else if (req.data !== 0) {

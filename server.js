@@ -163,9 +163,11 @@ router.route('/movies')
             } else {
                 if (req.query.reviews == "true") {
                     Movie.aggregate([
+                        /*
                         {
                           $match: {'Title': req.body.title}
                         },
+                        */
                         {
                             $lookup: {
                                 from: 'reviews',

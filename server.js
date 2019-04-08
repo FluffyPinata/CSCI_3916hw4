@@ -216,6 +216,8 @@ router.route('/reviews')
 
                     res.json({success: true, message: 'Review created!'});
                 });
+            } else {
+                res.json({message: 'Movie does not exist'});
             }
         })
     })

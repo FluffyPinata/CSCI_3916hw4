@@ -175,7 +175,7 @@ router.route('/movies')
                                 as: 'reviews'
                             }
                         }
-                    ]), function(err, doc) {
+                    ], function(err, doc) {
                         if (err) {
                             console.log("Reached here");
                             res.send(err);
@@ -184,7 +184,7 @@ router.route('/movies')
                             res.json({movie_info: doc, message: 'Movie found'});
                         }
                         console.log("endif");
-                    }
+                    });
                 } else {
                     res.json({movie_info: data, message: 'Movie found'});
                 }

@@ -191,12 +191,17 @@ router.route('/movies')
 
 router.route('/reviews')
     .post(authJwtController.isAuthenticated, function(req, res) {
+
+        let token1 = req.headers.authorization;
+        let token2 = token1.split(' ');
+        let token3 = jwt.verify(token2[1], process.env.SECRET_KEY);
+
         Movie.findOne( { title: req.body.movieTitle }, function(err) {
             if (err) {
                 res.json({message: 'General error'});
             } else if (req.data !== 0) {
                 var review = new Review();
-                review.name = req.body.name;
+                review.name = token3.username;
                 review.quote = req.body.quote;
                 review.rating = req.body.rating;
                 review.movieTitle = req.body.movieTitle;

@@ -162,9 +162,10 @@ router.route('/movies')
                 res.json({message: 'Movie could not be found'});
             } else {
                 if (req.query.reviews === "true") {
+                    console.log("Movie aggregate ;)");
                     Movie.aggregate([
                         {
-                          $match: {'title': req.body.title}
+                            $match: {'title': req.body.title}
                         },
                         {
                             $lookup: {
@@ -190,7 +191,7 @@ router.route('/movies')
 
 router.route('/reviews')
     .post(authJwtController.isAuthenticated, function(req, res) {
-        Movie.find( { title: req.body.movieTitle }, function(err) {
+        Movie.findOne( { title: req.body.movieTitle }, function(err) {
             if (err) {
                 res.json({message: 'General error'});
             } else if (req.data !== 0) {

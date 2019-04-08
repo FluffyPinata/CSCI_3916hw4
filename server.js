@@ -199,10 +199,10 @@ router.route('/reviews')
         let token2 = token1.split(' ');
         let token3 = jwt.verify(token2[1], process.env.SECRET_KEY);
 
-        Movie.findOne( { title: req.body.movieTitle }, function(err, doc) {
+        Movie.findOne( { title: req.body.movieTitle }, function(err, data) {
             if (err) {
                 res.json({message: 'General error'});
-            } else if (doc.length !== 0) {
+            } else if (data.length !== 0) {
                 var review = new Review();
                 review.name = token3.username;
                 review.quote = req.body.quote;

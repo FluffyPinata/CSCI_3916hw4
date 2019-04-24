@@ -6,6 +6,7 @@ var User = require('./Users');
 var Movie = require('./movies');
 var Review = require('./reviews');
 var jwt = require('jsonwebtoken');
+var cors = require("cors");
 
 var app = express();
 module.exports = app; // for testing
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
+app.use(cors());
 
 var router = express.Router();
 

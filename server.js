@@ -55,7 +55,7 @@ router.post('/signup', function(req, res) {
     }
     else {
         var user = new User();
-        user.email = req.body.email;
+        user.name = req.body.name;
         user.username = req.body.username;
         user.password = req.body.password;
         // save the user
@@ -75,11 +75,11 @@ router.post('/signup', function(req, res) {
 
 router.post('/signin', function(req, res) {
     var userNew = new User();
-    userNew.email = req.body.email;
+    userNew.name = req.body.name;
     userNew.username = req.body.username;
     userNew.password = req.body.password;
 
-    User.findOne({ username: userNew.username }).select('email username password').exec(function(err, user) {
+    User.findOne({ username: userNew.username }).select('name username password').exec(function(err, user) {
         if (err) res.send(err);
 
         user.comparePassword(userNew.password, function(isMatch){

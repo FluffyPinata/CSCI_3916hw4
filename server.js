@@ -111,6 +111,7 @@ router.route('/movies')
                 movie.title = req.body.title;
                 movie.releaseYear = req.body.releaseYear;
                 movie.genre = req.body.genre;
+                movie.imageUrl = req.body.imageUrl;
                 movie.actors = req.body.actors;
                 // save the user
                 movie.save(function (err) {
@@ -133,6 +134,7 @@ router.route('/movies')
                 title: req.body.title,
                 releaseYear: req.body.releaseYear,
                 genre: req.body.genre,
+                imageUrl: req.body.imageUrl,
                 actors: req.body.actors,
             },
             function(err) {

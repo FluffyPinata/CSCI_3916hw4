@@ -159,41 +159,61 @@ router.route('/movies')
         })
     })
     .get(authJwtController.isAuthenticated, function(req, res) {
-        Movie.findOne( { title: req.body.title }, function(err, data) {
-            if (err) {
-                res.json({message: 'General error'});
-            } else if (req.data === 0) {
-                res.json({message: 'Movie could not be found'});
-            } else {
-                if (req.query.reviews === "true") {
-                    console.log("Movie aggregate ;)");
-                    Movie.aggregate([
-                        {
-                            $match: {'title': req.body.title}
-                        },
-                        {
-                            $lookup: {
-                                from: 'reviews',
-                                localField: 'title',
-                                foreignField: 'movieTitle',
-                                as: 'reviews'
-                            }
-                        }
-                    ], function(err, doc) {
-                        if (err) {
-                            console.log("Reached here");
-                            res.send(err);
-                        } else {
-                            console.log("asdf");
-                            res.json({movie_info: doc, message: 'Movie found'});
-                        }
-                        console.log("endif");
-                    });
+        if ( req.query.movieId != null) {
+            Movie.findOne( { _id: req.query.movieId }, function(err, data) {
+                if (err) {
+                    res.json({message: 'General error'});
+                } else if (req.data === 0) {
+                    res.json({message: 'Movie could not be found'});
                 } else {
-                    res.json({movie_info: data, message: 'Movie found'});
+                    if (req.query.reviews === "true") {
+                        console.log("Movie aggregate ;)");
+                        Movie.aggregate([
+                            {
+                                $match: {'_id': req.query.movieId}
+                            },
+                            {
+                                $lookup: {
+                                    from: 'reviews',
+                                    localField: 'title',
+                                    foreignField: 'movieTitle',
+                                    as: 'reviews'
+                                }
+                            }
+                        ], function (err, doc) {
+                            if (err) {
+                                res.send(err);
+                            } else {
+                                res.json({movie_info: doc, message: 'Movie found'});
+                            }
+                        });
+                    }
                 }
-            }
-        })
+            })
+        } else {
+                    Movie.find({}, function (err) {
+                        if (err) {
+                            res.json({message: 'Error'});
+                        } else {
+                            Movie.aggregate([
+                                {
+                                    $lookup: {
+                                        from: 'reviews',
+                                        localField: 'title',
+                                        foreignField: 'movieTitle',
+                                        as: 'reviews'
+                                    }
+                                }
+                            ], function (err2, movieList) {
+                                if (err2) {
+                                    console.log(err2);
+                                } else {
+                                    res.json(movieList);
+                                }
+                            });
+                        }
+                    })
+        }
     });
 
 router.route('/reviews')
